@@ -4,7 +4,7 @@ A simple Python based website for Atlantic Canada Biochar project data visualisa
 Hosted on Streamlit Cloud a subsidiary of Snowflake.  
 Completely free and open-source Python graphic user interface
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://acbc-viz2.streamlit.app/)
 
 ### How to run it on your own machine
 
