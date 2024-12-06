@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import numpy as np
 import hmac
 
-st.set_page_config(page_title="AC/BC Visualize")
+st.set_page_config(page_title="AC/BC Visualize",layout="wide")
 
 # Connecting to the cloud
 NEXTCLOUD_URL = st.secrets["nextcloud"]["NEXTCLOUD_URL"]
@@ -119,7 +119,6 @@ def Norm(ATR, min_value=0, max_value=1):
 ############################# The app begins here!!! #########################################################################
 
 # Set page configuration
-st.set_page_config(page_title="AC/BC Visualize",layout="wide")
 st.logo('logo.png',link = None,size="large")  #Add a link here to TCA
 
 def Dashboard():
