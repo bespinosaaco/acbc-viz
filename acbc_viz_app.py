@@ -8,6 +8,8 @@ import plotly.graph_objects as go
 import numpy as np
 import hmac
 
+st.set_page_config(page_title="AC/BC Visualize")
+
 # Connecting to the cloud
 NEXTCLOUD_URL = st.secrets["nextcloud"]["NEXTCLOUD_URL"]
 USERNAME = st.secrets["nextcloud"]["username"]
