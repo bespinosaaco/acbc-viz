@@ -32,3 +32,34 @@ The test number "_1" will need to count with independent descriptions in the res
 2. MS: 2-columns, mass-to-charge (m/z) | Relative Abundance (%)  
 - pH: single digit"
             ''')
+
+st.write('''
+### Read related documentation 👇
+''')
+
+url1 = 'https://nextcloud.computecanada.ca/index.php/s/pwrdiEYzLXdKDbs'
+url2 = 'https://nextcloud.computecanada.ca/index.php/s/k9tZ3A96NdExC24'
+# Create the button
+col1,col2 = st.columns(2)
+with col1:
+    st.markdown(f"""
+        <a href="{url1}" target="_blank">
+            <button style="background-color:Green; color:white; padding:10px 20px;
+             border:none; border-radius:5px;
+             cursor:pointer; font-size:16px;
+            font-weight:bold;">
+                Biochar DMP 📄
+            </button>
+        </a>
+    """, unsafe_allow_html=True)
+with col2:
+    st.markdown(f"""
+        <a href="{url2}" target="_blank">
+            <button style="background-color:Green; color:white; padding:10px 20px;
+             border:none; border-radius:5px;
+             cursor:pointer; font-size:16px;
+            font-weight:bold;">
+                Biochar Excerpt 📄
+            </button>
+        </a>
+    """, unsafe_allow_html=True)

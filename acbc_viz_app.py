@@ -4,6 +4,7 @@ from requests.auth import HTTPBasicAuth
 import xml.etree.ElementTree as ET
 import pandas as pd
 import io
+from io import StringIO
 import plotly.graph_objects as go
 import numpy as np
 import hmac
@@ -115,11 +116,15 @@ def Norm(ATR, min_value=0, max_value=1):
     ATR['norm'] = ((ATR.iloc[:, 1] - min_val) / (max_val - min_val)) * (max_value - min_value) + min_value
     return ATR
 
+@st.cache_data
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode("utf-8")
 
 ############################# The app begins here!!! #########################################################################
 
 # Set page configuration
-st.logo('logo.png',link = None,size="large")  #Add a link here to TCA
+st.logo('logo.png',link = "https://www.ofi.ca/news/ocean-frontier-institute-moves-into-new-space-at-memorial-university",size="large")  #Add a link here to TCA
 
 def Dashboard():
     st.title("Welcome to AC/BC Viz 🦦!")
@@ -298,5 +303,47 @@ def Dashboard():
 
     st.plotly_chart(fig, use_container_width=True)
 
+    sel_col1,sel_col2 = st.columns(2)
+    with sel_col1:
+        sel_download = st.selectbox('Select and Infrared to download',sample_dic.keys(),placeholder="Chose from Infrared File List")
+    with sel_col2:
+        if sel_download is not None:
+            csv = convert_df(sample_dic[sel_download])
+
+            st.download_button(
+                label="Download infrared as CSV",
+                data=csv,
+                file_name=f"{sel_download[:-4]}.csv",
+                mime="text/csv",
+            )
+
+    st.write('''
+    ---
+    ### Rapid Plot  
+    ''')
+
+    uploaded_file = st.file_uploader("Upload your CSV")
+    plotcol1,plotcol2 = st.columns([1,3])
+    if uploaded_file is not None:
+        with plotcol1:
+            # Can be used wherever a "file-like" object is accepted:
+            df1 = pd.read_csv(uploaded_file,header=0)
+            st.dataframe(df1,use_container_width=True)
+        with plotcol2:
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=df1.iloc[:,0], y=df1.iloc[:,1],
+                                     mode='lines', name=uploaded_file.name))
+
+            fig.update_layout(
+                xaxis=dict(range=[4000, 400]),
+                title='ATR-FTIR',
+                xaxis_title='Wavelength',
+                yaxis_title='Intensity (a.u)',
+                width=800,
+                height=600
+            )
+
+            st.plotly_chart(fig, use_container_width=True)
+################### App end ################################
 pg = st.navigation([st.Page(Dashboard),st.Page("docs.py",title="Documentation")])
 pg.run()
