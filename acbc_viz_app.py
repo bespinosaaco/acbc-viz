@@ -309,9 +309,9 @@ def Dashboard():
     with sel_col2:
         if sel_download is not None:
             csv = convert_df(sample_dic[sel_download])
-
+            st.write(f" Download {sel_download[:-4]}")
             st.download_button(
-                label="Download infrared as CSV",
+                label=f"Download as CSV",
                 data=csv,
                 file_name=f"{sel_download[:-4]}.csv",
                 mime="text/csv",
